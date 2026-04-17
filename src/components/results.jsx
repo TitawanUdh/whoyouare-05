@@ -28,7 +28,6 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
   const analysis = useMemo(() => {
     const currentAnswers =
       answers?.length > 0 ? answers : savedResult?.rawAnswers || [];
-    // dataExcel?.length > 0 ? dataExcel : savedResult?.rawAnswers || [];
     return analyzeResult(currentAnswers);
   }, [answers, dataExcel, savedResult]);
 
@@ -39,7 +38,6 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
   // 🔹 ส่งข้อมูลไป sheet (ครั้งเดียว)
   useEffect(() => {
     const finalAnswers =
-      // answers?.length > 0 ? answers : savedResult?.rawAnswers || [];
     dataExcel?.length > 0 ? dataExcel : savedResult?.rawAnswers || [];
 
     if (!finalAnswers.length) return;
