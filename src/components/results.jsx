@@ -23,7 +23,6 @@ const Result = ({ answers, setAnswers }) => {
       return null;
     }
   }, []);
-  console.log("answers", answers);
 
   // 🔹 วิเคราะห์
   const analysis = useMemo(() => {
@@ -125,7 +124,7 @@ const Result = ({ answers, setAnswers }) => {
       Math.random().toString(36).substring(2);
     localStorage.setItem("psychoUserId", userId);
     await fetch(
-      "https://script.google.com/macros/s/AKfycbzSAcODKtiXbrqhpMA1p-4cOLYQaJRO7TCSpqiS_KRzfRZEt7ITYbBojmdkSsMZ83L2zw/exec",
+      "https://script.google.com/macros/s/AKfycbxsX95hBoFwgfwVM9zz4PJzfcMyTOGDXrq1Lf60wUmvoZ9OZz2cX3E642x8pASqq15WEw/exec",
       {
         method: "POST",
         mode: "no-cors",
