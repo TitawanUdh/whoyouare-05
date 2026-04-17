@@ -1,16 +1,19 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  font-family: "Noto Sans Thai", sans-serif !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+* {
+  font-family: "Noto Sans Thai", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
 }
 
 .App-header {
@@ -28,6 +31,152 @@
   color: #61dafb;
 }
 
+.App {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1b1b2f, #05050a);
+  overflow: hidden;
+}
+
+/* ดาว */
+.stars,
+.stars2,
+.stars3 {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(0 0 6px rgba(180, 180, 255, 0.6));
+}
+.stars {
+  width: 2px;
+  height: 2px;
+  box-shadow:
+    10vw 20vh rgba(255, 255, 255, 0.9),
+    30vw 80vh rgba(255, 255, 255, 0.8),
+    50vw 40vh rgba(255, 255, 255, 0.7),
+    70vw 10vh rgba(255, 255, 255, 0.9),
+    90vw 60vh rgba(255, 255, 255, 0.6);
+  animation:
+    floatStars 20s linear infinite,
+    twinkle 6s ease-in-out infinite;
+}
+
+.stars2 {
+  width: 3.5px;
+  height: 1.5px;
+  box-shadow:
+    20vw 30vh rgba(200, 200, 255, 0.6),
+    40vw 70vh rgba(200, 200, 255, 0.7),
+    60vw 50vh rgba(200, 200, 255, 0.5),
+    80vw 20vh rgba(200, 200, 255, 0.6);
+  animation:
+    floatStars 90s linear infinite,
+    twinkle 8s ease-in-out infinite;
+}
+
+.stars3 {
+  width: 1px;
+  height: 1px;
+  box-shadow:
+    15vw 60vh rgba(150, 150, 255, 0.4),
+    55vw 25vh rgba(150, 150, 255, 0.5),
+    75vw 75vh rgba(150, 150, 255, 0.4);
+  animation:
+    floatStarsReverse 120s linear infinite,
+    twinkle 10s ease-in-out infinite;
+}
+
+@keyframes floatStars {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-20vw, -30vh);
+  }
+}
+
+@keyframes floatStarsReverse {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(25vw, 20vh);
+  }
+}
+
+/* หมอกลึกลับเบา ๆ */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.04),
+    transparent 60%
+  );
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.container {
+  position: relative;
+  z-index: 10; /* 👈 สูงกว่า fog แน่นอน */
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 200;
+  line-height: 2;
+  opacity: 0.75;
+}
+
+.start-button {
+  margin-top: 2rem;
+  padding: 0.75rem 5rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(106, 17, 203, 0.6);
+}
+
+/* จัดการ <a> ด้านใน */
+.start-button a {
+  color: #fff; /* ตัวหนังสือขาว */
+  text-decoration: none; /* เอาเส้นใต้หาย */
+  display: block;
+}
+
+/* Animation */
+@keyframes pulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +184,440 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.question-page {
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f5f5f5;
+  background: radial-gradient(circle at top, #1b1b2f, #05050a);
+}
+
+.question-title {
+  font-size: 1.6rem;
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.options {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  width: 100%;
+  margin: 5px;
+}
+
+
+
+/* animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* loading */
+.loading-page {
+  min-height: 100vh;
+  background: #0f1220;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 24px 0px 24px;
+}
+
+.ad-box {
+  background: #3c4384;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: #bcc6f350 0px 10px 30px;
+width: 100%;
+max-width: 480px;
+  margin: 0 auto;
+}
+
+/* .img-ads{
+  max-width: 150px;
+} */
+
+.ad-box img {
+  width: 100%;
+  max-width: 240px; /* 👈 สำคัญ */
+  border-radius: 14px;
+  margin: 0 auto;
+  display: block;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+
+.loading-box {
+  text-align: center;
+}
+
+.breathing-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.breathing-dots span {
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: breathe 1.5s infinite ease-in-out;
+}
+
+.breathing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.breathing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+
+.energy-bar {
+  width: 180px;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto 18px;
+}
+
+.energy-bar span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.9),
+    transparent
+  );
+  animation: flow 1.6s ease-in-out infinite;
+}
+
+@keyframes flow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+.mystic-ring {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  animation: pulse 1.8s ease-in-out infinite;
+  margin: 0 auto 18px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 25px rgba(255,255,255,0.7);
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0.4;
+  }
+}
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  opacity: 0.85;
+  font-size: 14px;
+}
+
+.add-box a {
+  color: #fff !important; /* ตัวหนังสือขาว */
+  text-decoration: none !important; /* เอาเส้นใต้หาย */
+  display: block;
+}
+
+.ads-text {
+  color: #ffffffc2 !important; /* ตัวหนังสือขาว */
+  text-decoration: none !important; /* เอาเส้นใต้หาย */
+  display: block;
+  font-size: 14px;
+    text-indent: 1.5em;   /* เว้นวรรคย่อหน้าแบบหนังสือ */
+
+}
+
+.ads-button {
+  padding: 0.75rem 5rem;
+  font-size: 13px !important;
+  color: #fff;
+  background: linear-gradient(45deg, #cb7711, #fce325e8);
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(252, 144, 37, 0.4);
+  width: 100px;
+height: 30px;
+  border: none !important;
+}
+
+.ads-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(106, 17, 203, 0.6);
+}
+
+/* จัดการ <a> ด้านใน */
+.ads-button a {
+  color: #fff; /* ตัวหนังสือขาว */
+  text-decoration: none; /* เอาเส้นใต้หาย */
+  display: block;
+}
+
+.ads-link {
+  text-decoration: none !important; /* เอาเส้นใต้หาย */
+  color: inherit; /* ใช้สีจากข้างใน */
+  display: block;
+}
+
+.ads-link:hover {
+  text-decoration: none;
+}
+
+.reveal-button {
+  width: 160px;
+  height: 40px;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle at top,
+    rgba(255,255,255,0.15),
+    rgba(120,80,255,0.25),
+    rgba(0,0,0,0.6)
+  );
+  border: 1px solid rgba(200,160,255,0.6);
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  letter-spacing: 1px;
+
+  box-shadow:
+    0 0 25px rgba(160,120,255,0.45),
+    inset 0 0 25px rgba(255,255,255,0.15);
+
+  backdrop-filter: blur(6px);
+}
+.dissolve {
+  animation: smokeOut 1s ease forwards;
+}
+
+@keyframes smokeOut {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    filter: blur(4px);
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.15) translateY(-20px);
+  }
+}
+
+.reveal {
+  animation: revealFade 1.2s ease forwards;
+  opacity: 0;
+}
+
+@keyframes revealFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 0.7;
+    transform: scale(1.05);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.instagram-icon {
+  font-size: 24px;
+  color: #E1306C; /* สีหลักของ Instagram */
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-right: 5px;
+}
+.instagram-icon:hover {
+  transform: scale(1.2);
+  color: #C13584; /* สีเมื่อ hover */
+}
+
+
+.menu-bar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* แก้ไขปุ่มเปิดเมนู */
+.menu-bar {
+  position: fixed; /* เปลี่ยนจาก absolute เป็น fixed เพื่อให้ปุ่มอยู่ที่เดิมเสมอ */
+  top: 15px;
+  left: 15px;
+  z-index: 2000; /* ดันให้สูงกว่าทุกอย่างในหน้าจอ */
+  color: #fff;
+  cursor: pointer;
+  padding: 10px; /* เพิ่มพื้นที่ให้กดง่ายขึ้น (Hitbox) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-bar svg {
+  font-size: 28px; /* ขยายขนาดไอคอนเล็กน้อย */
+  filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); /* เพิ่มเงาให้เห็นชัดบนพื้นหลังดาว */
+}
+
+/* แก้ไข Sidebar */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -280px; /* ค่าเริ่มต้นซ่อนไว้ซ้ายสุด */
+  width: 280px;
+  height: 100vh; /* ให้สูงเต็มจอ */
+  background: #1a1a2e !important; /* บังคับสีพื้นหลังให้ทึบและเห็นชัด */
+  z-index: 9999; /* ให้สูงที่สุด */
+  transition: 0.4s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* เมื่อเปิดเมนู */
+.side-menu.open {
+  left: 0 !important; /* เลื่อนออกมาให้สุดขอบ */
+}
+
+/* แก้ไขแผ่นใสตอนเปิดเมนู */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2500; /* อยู่ระหว่างปุ่มกับเมนู */
+}
+
+/* ปรับปรุงปุ่มปิดในเมนู */
+
+/* ตรวจสอบว่ารายการในเมนูมีสีขาวและมองเห็นได้ */
+
+
+.menu-list {
+  margin-top: 40px; /* เว้นระยะจากด้านบน */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white !important; /* บังคับให้เป็นสีขาว */
+  cursor: pointer;
+}
+
+.menu-icon {
+  margin-right: 15px;
+  font-size: 20px;
+  color: #ff9a9e; /* สีไอคอนให้เด่นขึ้น */
+}
+
+.menu-title {
+  color: white !important; /* บังคับให้เห็นตัวหนังสือ */
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* ปุ่มปิด */
+.close-btn {
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
 }
