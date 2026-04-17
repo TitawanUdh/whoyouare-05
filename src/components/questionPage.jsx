@@ -1,15 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import questions from "./question";
 
-function QuestionPage({ answers, setAnswers }) {
+function QuestionPage({ answers, setAnswers, dataExcel, setDataExcel }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const questionIndex = Number(id) - 1;
   const question = questions[questionIndex];
-  console.log("question", question);
-  console.log("questionIndex", questions[questionIndex]);
-  console.log("id", id);
 
   if (!question)
     return (
@@ -17,28 +14,30 @@ function QuestionPage({ answers, setAnswers }) {
         <div> ไม่พบคำถาม</div>
       </div>
     );
-    const handleSelect = (option) => {
-      const newAnswers = [...answers];
-    
-      // 🔥 เก็บทั้ง object
-      newAnswers[questionIndex] = {
-        trait: option.trait,
-        insight: option.insight,
-      };
-    
-      setAnswers(newAnswers);
-    
-      if (questionIndex + 1 < questions.length) {
-        navigate(`/question/${questionIndex + 2}`);
-      } else {
-        localStorage.setItem("quizScore", JSON.stringify(newAnswers));
-        navigate("/loading");
-      }
+  const handleSelect = (option) => {
+    const newAnswers = [...answers];
+    const newExcelAnswers = [...dataExcel];
+
+    // 🔥 เก็บทั้ง object
+    newAnswers[questionIndex] = {
+      trait: option.trait,
+      insight: option.insight,
     };
+    newExcelAnswers[questionIndex] = option.trait;
+
+    setAnswers(newAnswers);
+    setDataExcel(newExcelAnswers);
+    if (questionIndex + 1 < questions.length) {
+      navigate(`/question/${questionIndex + 2}`);
+    } else {
+      localStorage.setItem("quizScore", JSON.stringify(newAnswers));
+      navigate("/loading");
+    }
+  };
+
   return (
     <div className="App ">
       <div className="question-page" key={question.id || question.question}>
-        {/* 🔹 ใส่ key ไว้ที่นี่ เมื่อค่านี้เปลี่ยน React จะ Reset UI ทั้งหมดในนี้ */}
         <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100">
           <div className="question-title">
             <h2>{question.question}</h2>

@@ -7,20 +7,20 @@ import LoadingResult from "./components/loading";
 
 function App() {
   const [answers, setAnswers] = useState([]);
-
+const [dataExcel, setDataExcel] = useState([])
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/question/:id"
-          element={<QuestionPage answers={answers} setAnswers={setAnswers} />}
+          element={<QuestionPage answers={answers} setAnswers={setAnswers} dataExcel={dataExcel} setDataExcel={setDataExcel}/>}
         />
 
         <Route path="/loading" element={<LoadingResult />} />
         <Route
           path="/result"
-          element={<Result answers={answers} setAnswers={setAnswers} />}
+          element={<Result answers={answers} setAnswers={setAnswers} dataExcel={dataExcel} setDataExcel={setDataExcel} />}
         />
       </Routes>
     </BrowserRouter>

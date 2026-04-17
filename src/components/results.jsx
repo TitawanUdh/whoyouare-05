@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import { FaInstagram } from "react-icons/fa6";
 
-const Result = ({ answers, setAnswers }) => {
+const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
   const navigate = useNavigate();
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -28,8 +28,9 @@ const Result = ({ answers, setAnswers }) => {
   const analysis = useMemo(() => {
     const currentAnswers =
       answers?.length > 0 ? answers : savedResult?.rawAnswers || [];
+    // dataExcel?.length > 0 ? dataExcel : savedResult?.rawAnswers || [];
     return analyzeResult(currentAnswers);
-  }, [answers, savedResult]);
+  }, [answers, dataExcel, savedResult]);
 
   // 🔥 ใช้ trait แทน group
   const trait = analysis.primary;
@@ -38,7 +39,8 @@ const Result = ({ answers, setAnswers }) => {
   // 🔹 ส่งข้อมูลไป sheet (ครั้งเดียว)
   useEffect(() => {
     const finalAnswers =
-      answers?.length > 0 ? answers : savedResult?.rawAnswers || [];
+      // answers?.length > 0 ? answers : savedResult?.rawAnswers || [];
+    dataExcel?.length > 0 ? dataExcel : savedResult?.rawAnswers || [];
 
     if (!finalAnswers.length) return;
     if (!data?.title) return;
@@ -48,21 +50,23 @@ const Result = ({ answers, setAnswers }) => {
 
     saveToSheet(finalAnswers, data.title);
     localStorage.setItem("sheet-sent", "true");
-  }, [answers, savedResult, data]);
+  }, [dataExcel, answers, savedResult, data]);
 
   // 🔹 save local
   useEffect(() => {
-    if (!answers?.length || !trait || !data) return;
+    if (!answers?.length || !dataExcel?.length || !trait || !data) return;
 
     const resultToSave = {
       trait,
       result: data,
       rawAnswers: answers,
+      rawExAnswers: dataExcel,
+
       timestamp: new Date().toISOString(),
     };
 
     localStorage.setItem("myself-result", JSON.stringify(resultToSave));
-  }, [answers, trait, data]);
+  }, [dataExcel, answers, trait, data]);
 
   // 🔹 save image
   const handleSaveImage = async () => {
@@ -111,6 +115,7 @@ const Result = ({ answers, setAnswers }) => {
     localStorage.removeItem("myself-result");
     localStorage.removeItem("sheet-sent");
     setAnswers([]);
+    setDataExcel([]);
     navigate("/");
   };
 
@@ -118,18 +123,18 @@ const Result = ({ answers, setAnswers }) => {
   if (!trait || !data) return <p>ไม่สามารถวิเคราะห์ได้</p>;
 
   // 🔹 send sheet
-  const saveToSheet = async (answers, result) => {
+  const saveToSheet = async (dataExcel, result) => {
     const userId =
       localStorage.getItem("psychoUserId") ||
       Math.random().toString(36).substring(2);
     localStorage.setItem("psychoUserId", userId);
     await fetch(
-      "https://script.google.com/macros/s/AKfycbxsX95hBoFwgfwVM9zz4PJzfcMyTOGDXrq1Lf60wUmvoZ9OZz2cX3E642x8pASqq15WEw/exec",
+      "https://script.google.com/macros/s/AKfycbzuNwhWHawZS1CO74VgWJjYCV7FinHuuEpmldd-KoREvJ-yMGsJ-WDu7ZcVFE9nncddSg/exec",
       {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, answers, result }),
+        body: JSON.stringify({ userId, dataExcel, result }),
       }
     );
   };
@@ -158,9 +163,9 @@ const Result = ({ answers, setAnswers }) => {
               {traitToLabel[analysis.primary]}
             </p>
             {data.image && (
-             <div className="d-flex justify-content-center align-items-center">
-             <Image src={data.image} style={{ maxWidth: "300px" }} />
-           </div>
+              <div className="d-flex justify-content-center align-items-center">
+                <Image src={data.image} style={{ maxWidth: "300px" }} />
+              </div>
             )}
             <p className="mt-4">{data.story}</p>
           </div>
