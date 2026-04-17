@@ -29,7 +29,7 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
     const currentAnswers =
       answers?.length > 0 ? answers : savedResult?.rawAnswers || [];
     return analyzeResult(currentAnswers);
-  }, [answers, dataExcel, savedResult]);
+  }, [answers, savedResult]);
 
   // 🔥 ใช้ trait แทน group
   const trait = analysis.primary;
