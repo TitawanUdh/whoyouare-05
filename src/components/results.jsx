@@ -48,7 +48,7 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
 
     saveToSheet(finalAnswers, data.title);
     localStorage.setItem("sheet-sent", "true");
-  }, [dataExcel, answers, savedResult, data]);
+  }, [dataExcel, savedResult, data]);
 
   // 🔹 save local
   useEffect(() => {
@@ -135,8 +135,8 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
         body: JSON.stringify({ userId, dataExcel, result }),
       }
     );
-  };
 
+  };
   return (
     <div id="result-export">
       <div className={`result-page-1 theme-${trait}`} id="result-export-card">
