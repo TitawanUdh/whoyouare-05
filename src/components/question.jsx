@@ -1,5 +1,32 @@
 const questions = [
   {
+    id: 0,
+    question: "เพศของคุณ",
+    options: [
+      {
+        key: "",
+        text: "ผู้หญิง",
+        trait: "woman",
+        insight:
+          "",
+      },
+      {
+        key: "",
+        text: "ผู้ชาย",
+        trait: "men",
+        insight:
+          "",
+      },
+      {
+        key: "",
+        text: "LGBQ+",
+        trait: "LGBQ",
+        insight:
+          "",
+      },
+    ],
+  },
+  {
     id: 1,
     question: "เวลาคุณประสบความสำเร็จ คุณรู้สึกว่า…",
     options: [
