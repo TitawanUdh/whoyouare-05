@@ -438,7 +438,7 @@ height: 30px;
 }
 
 .reveal-button {
-  width: 160px;
+  width: 160px !important;
   height: 40px;
   border-radius: 20px;
   background: radial-gradient(
@@ -620,4 +620,5 @@ height: 30px;
   color: white;
   font-size: 30px;
   cursor: pointer;
+  width: 40px !important;
 }
