@@ -11,7 +11,7 @@ function Home() { const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [links, setLinks] = useState([]); // เปลี่ยนมาใช้ State เก็บข้อมูลแทน
 
   // URL ของ Google Sheet ที่ Publish เป็น CSV แล้ว
-  const SHEET_URL = "";
+  const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS8s6uutgfkSb4T3HkLvMqRzjKzS1tX2awIZGoPvdXFD-9CPuVdIPVsGNVn956n-OJsDmaacVgmW4zv/pub?gid=0&single=true&output=csv";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,11 +28,11 @@ function Home() { const [isMenuOpen, setIsMenuOpen] = useState(false);
           setLinks(formattedData);
         },
       });
-    };
 
+    };
     fetchData();
   }, []);
-
+  
   const handleLinkClick = (href) => {
     if (!href) return;
     setIsMenuOpen(false);
