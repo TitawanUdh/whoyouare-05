@@ -38,7 +38,7 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
   // 🔹 ส่งข้อมูลไป sheet (ครั้งเดียว)
   useEffect(() => {
     const finalAnswers =
-    dataExcel?.length > 0 ? dataExcel : savedResult?.rawAnswers || [];
+      dataExcel?.length > 0 ? dataExcel : savedResult?.rawAnswers || [];
 
     if (!finalAnswers.length) return;
     if (!data?.title) return;
@@ -135,7 +135,6 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
         body: JSON.stringify({ userId, dataExcel, result }),
       }
     );
-
   };
   return (
     <div id="result-export">
@@ -148,7 +147,15 @@ const Result = ({ answers, setAnswers, dataExcel, setDataExcel }) => {
               href="https://www.instagram.com/whoyouare.official/"
               target="_blank"
             >
-              <FaInstagram /> @whoyouare
+              {/* <FaInstagram />  */}
+              <span
+                className="m-0 p-0"
+                style={{
+                  fontSize: "3vw",
+                }}
+              >
+                @whoyouare
+              </span>
             </Button>
           </div>
 
